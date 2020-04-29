@@ -12,7 +12,9 @@
     "mongodb": "^2.1.16",
     "morgan": "^1.10.0",
     "object-assign": "^4.1.0",
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "js-yaml": "^3.13.1"
   },
   "engine": {
     "node": "*",
