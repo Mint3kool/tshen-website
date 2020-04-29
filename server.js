@@ -6,7 +6,8 @@ const app = express();
 const stravaAuthUrl = "https://www.strava.com/oauth/authorize";
 const clientId = 29349;
 const redirectUri = "http://localhost:3001/strava/redirect";
-const backendIp = "http://10.131.20.136:8080/strava/redirect";
+const backendIp =
+  "http://runrunbackend-runrunrun.apps.us-east-2.starter.openshift-online.com/strava/redirect";
 const stravaPostUrl = "https://www.strava.com/oauth/token";
 const yaml = require("js-yaml");
 const fs = require("fs");
