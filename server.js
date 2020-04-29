@@ -6,6 +6,7 @@ const app = express();
 const stravaAuthUrl = "https://www.strava.com/oauth/authorize";
 const clientId = 29349;
 const redirectUri = "http://localhost:3001/strava/redirect";
+const backendIp = "http://10.131.20.136:8080/strava/redirect";
 const stravaPostUrl = "https://www.strava.com/oauth/token";
 const yaml = require("js-yaml");
 const fs = require("fs");
@@ -131,7 +132,7 @@ app.get("/auth", (req, res) => {
   //If refresh token present and access token expired, get a new access token. Else, redirect to strava oauth page to get a token
   if (refreshToken !== "" && tokenExpiration < new Date().getTime()) {
     console.log("Access token expired, getting new one");
-    res.redirect(redirectUri);
+    res.redirect(backendIp);
   } else {
     console.log("No access token, redirecting to strava oauth page");
     const stravaAuthUrlWithParams =
@@ -140,7 +141,7 @@ app.get("/auth", (req, res) => {
       querystring.encode({
         client_id: clientId,
         response_type: "code",
-        redirect_uri: redirectUri,
+        redirect_uri: backendIp,
         scope: "read",
       });
     res.redirect(stravaAuthUrlWithParams);
@@ -167,7 +168,7 @@ app.get("/strava/redirect", (req, res) => {
     tokenParams.refresh_token = refreshToken;
     tokenParams.grant_type = "refresh_token";
   } else {
-    res.redirect("http://localhost:3000");
+    res.redirect("http://localhost:8080");
   }
 
   //Send HTTP Post request to URL specified in Strava docs to get token
@@ -185,7 +186,7 @@ app.get("/strava/redirect", (req, res) => {
     })
     .finally(() => {
       //Redirect back to homepage? TODO
-      res.redirect("http://localhost:3000");
+      res.redirect("http://localhost:8080");
     });
 });
 
